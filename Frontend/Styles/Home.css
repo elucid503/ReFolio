@@ -9,22 +9,26 @@
 
     --Font: 'Urbanist', sans-serif;
 
-    --Font-Size-Small: clamp(0.5rem, 1vw, 1rem);
-    --Font-Size-Medium: clamp(1rem, 2vw, 1.5rem);
-    --Font-Size-Large: clamp(1.5rem, 3vw, 2rem);
+    --Font-Size-Small: clamp(1rem, 1vw, 1.25rem);
+    --Font-Size-Medium: clamp(1.25rem, 2vw, 1.75rem);
+    --Font-Size-Large: clamp(1.75rem, 3vw, 2.25rem);
 
+    --Spacing-Micro: 0.25rem;
     --Spacing-Small: 1rem;
     --Spacing-Medium: 2rem;
     --Spacing-Large: 3rem;
 
-    --Element-Color: rgba(42, 42, 42, 0.75);
-    --Element-Color-Lighter: rgba(42, 42, 42, 0.75);
+    --Color-Accent: #1a1a1a;
+
+    --Element-Color: rgba(72, 72, 72, 0.75);
+    --Element-Color-Lighter: rgba(111, 111, 111, 0.75);
+    --Element-Color-Darker: rgba(41, 41, 41, 0.75);
 
     --Element-Backdrop-Filter: blur(10px);
 
     --Border-Radius-Small: 0.25rem;
-    --Border-Radius-Medium: 0.5rem;
-    --Border-Radius-Large: 1rem;
+    --Border-Radius-Medium: 0.75rem;
+    --Border-Radius-Large: 1.25rem;
 
 }
 
@@ -37,10 +41,6 @@ body {
     background-color: var(--Background-Color);
     color: var(--Text-Color);
 
-    margin: 0;
-    padding: 0;
-
-    box-sizing: border-box;
 
 }
 
@@ -48,15 +48,61 @@ body {
 
 .Header {
 
-    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    width: 90%;
+
+    margin-top: var(--Spacing-Large);
     margin-bottom: var(--Spacing-Large);
+    margin-left: auto; margin-right: auto;
+
+    padding-top: var(--Spacing-Medium);
+    padding-bottom: var(--Spacing-Medium);
+
+    background-color: var(--Color-Accent);
+    backdrop-filter: var(--Element-Backdrop-Filter);
+
+    border-radius: var(--Border-Radius-Medium);
+
+}
+
+.Header .Image {
+
+    display: flex;
+    align-items: center;
+
+    padding: var(--Spacing-Small);
+
+}
+
+.Header .Image img {
+
+    height: fit-content;
+
+    aspect-ratio: 1/1;
+
+    height: 125px;
+    
+    border-radius: var(--Border-Radius-Medium);
+
+    margin-left: clamp(var(--Spacing-Small), 5vw, var(--Spacing-Medium));
+    margin-right: clamp(var(--Spacing-Small), 5vw, var(--Spacing-Medium));
+
+}
+
+.Header .Content {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
 }
 
 .Header .Pretext {
 
-    font-size: var(--Font-Size-Medium);
-    margin-bottom: var(--Spacing-Small);
+    font-size: var(--Font-Size-Small);
+    margin-bottom: var(--Spacing-Micro);
 
 }
 
@@ -64,7 +110,7 @@ body {
 
     font-size: var(--Font-Size-Large);
     font-weight: 800;
-    margin-bottom: var(--Spacing-Small);
+    margin-bottom: var(--Spacing-Micro);
 
 }
 
@@ -77,6 +123,8 @@ body {
 .Programming, .Photography {
 
     margin-bottom: var(--Spacing-Large);
+    background-color: var(--Element-Color);
+    backdrop-filter: var(--Element-Backdrop-Filter);
 
 }
 
@@ -105,7 +153,7 @@ body {
 
 .Tile {
 
-    background-color: var(--Element-Color);
+    background-color: var(--Element-Color-Darker);
     border-radius: var(--Border-Radius-Medium);
     padding: var(--Spacing-Medium);
     backdrop-filter: var(--Element-Backdrop-Filter);
@@ -132,7 +180,7 @@ body {
 .Button {
 
     background-color: var(--Element-Color-Lighter);
-    border-radius: var(--Border-Radius-Small);
+    border-radius: var(--Border-Radius-Large);
     padding: var(--Spacing-Small) var(--Spacing-Medium);
     cursor: pointer;
 
