@@ -2,12 +2,12 @@ function GenerateHSL(): string {
 
     // Limit to more vibrant colors
 
-    const LowerLimit = 30;
-    const UpperLimit = 330;
+    const LowerLimit = 10;
+    const UpperLimit = 350;
 
     const Hue = Math.floor(Math.random() * (UpperLimit - LowerLimit) + LowerLimit);
 
-    return `hsl(${Hue}, 5%, 30%)`;
+    return `hsl(${Hue}, 3%, 30%)`;
 
 }
 
@@ -15,11 +15,13 @@ function UpdateColors(HSLString: string): void {
 
     const Image = $(".Header .Image img");    
 
-    // Convert HSL string to hue rotation
+    // Convert HSL string to hue rotation assuming image is originally purple
 
-    const Hue = (HSLString?.match(/(\d+)/) || [])[0];
+    const Hue = parseInt((HSLString.match(/\d+/) || [])[0] || "0");
 
-    Image.css("filter", `sepia(1) hue-rotate(${Hue}deg)`);    
+    const HueRotation = (Hue - 270) % 360;
+
+    Image.css("filter", `hue-rotate(${HueRotation}deg) saturate(0.25)`);
 
     // Elements
 
@@ -29,3 +31,10 @@ function UpdateColors(HSLString: string): void {
 
 const Color = GenerateHSL();
 UpdateColors(Color);
+
+$(".Header").on("click", () => {
+
+    const Color = GenerateHSL();
+    UpdateColors(Color);
+
+});
