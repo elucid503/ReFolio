@@ -1,0 +1,36 @@
+body {
+
+  margin: 0;
+  background: #212121;
+  touch-action: pan-y;
+  overflow: auto;
+
+}
+
+video {
+
+  margin: auto;
+  z-index: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
+  position: fixed;
+
+  top: 0; left: 0; right: 0; bottom: 0;
+
+}
+
+.scroll-dummy {
+
+  height: 2000px;
+  width: fit-content;
+
+  margin: auto;
+
+  z-index: 1;
+
+}
+  
