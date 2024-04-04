@@ -250,9 +250,41 @@ body {
     font-size: var(--Font-Size-Small);
     text-align: center;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     cursor: pointer;
 
     transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.35s;
+
+}
+
+.Drone-Intro {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto; margin-right: auto;
+
+}
+
+.Drone-Intro .Image {
+
+    width: 100%;
+    height: 200px;
+
+}
+
+.Drone-Intro .Image img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: var(--Border-Radius-Medium);
 
 }
 
