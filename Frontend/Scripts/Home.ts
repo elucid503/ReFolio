@@ -38,3 +38,34 @@ $(".Header").on("click", () => {
     UpdateColors(Color);
 
 });
+
+// Modal Stuff (Gallery) 
+
+const Gallery = $('.Responsive-Gallery');
+const Modal = $('#Gallery-Modal');
+const ModalImg = $('#Modal-Image');
+const CloseBtn = $('#Modal-Close');
+
+Gallery.on('click', 'img', function() {
+    
+    Modal.fadeIn(200);
+
+    ModalImg.attr('src', $(this).attr('src') || '');
+
+});
+
+CloseBtn.on('click', function() {
+    
+    Modal.fadeOut(200);
+
+});
+
+Modal.on('click', function(e) {
+    
+    if (e.target === this) {
+
+        Modal.fadeOut(200);
+
+    }
+
+});

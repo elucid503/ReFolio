@@ -1,5 +1,18 @@
 let FrameDir = "Frames_LIC";
-let FrameLength = 300;
+let FrameLength = 554;
+
+const Random = Math.random();
+
+if (Random < 0.5) {
+
+    FrameDir = "Frames_Clouds";
+    FrameLength = 300;
+
+}
+
+$(".Drone-Intro .Image img").attr("src", `../Assets/${FrameDir}/frame_0001.jpg`)
+
+// More soon...
 
 const LoadedImages = {
 
@@ -112,9 +125,8 @@ setInterval(() => {
     const Image = $(".Drone-Intro .Image img");
 
     // Upgrade to a higher resolution image if the user is not scrolling
-    // Higher res are represented as PNGs instead of JPGs
 
-    Image.attr("src", `../Assets/${FrameDir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.png`);
+    Image.attr("src", `../Assets/${FrameDir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
 
 }, 50);
 
