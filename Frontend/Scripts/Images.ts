@@ -45,40 +45,14 @@ function LoadImages() {
 
 }
 
-$(".button").on('click', function (e) {
-
-    const ID = $(this).attr('id');
-
-    if (ID === "Clouds") {
-
-        FrameDir = "Frames_Clouds";
-        FrameLength = 300;
-
-        $(".Drone-Intro .Image img").attr("src", "../Assets/Frames_Clouds/frame_0001.jpg")
-
-        LoadImages();
-
-    }
-
-    if (ID === "LIC") {
-
-        FrameDir = "Frames_LIC";
-        FrameLength = 554;
-
-        $(".Drone-Intro .Image img").attr("src", "../Assets/Frames_LIC/frame_0001.jpg")
-
-        LoadImages();
-
-    }
-
-});
-
+let IsUpdated = false;
 let LastScroll = 0;
-let CurrentFrame = 0;
+let CurrentFrame = 1;
 
 window.addEventListener('scroll', function () {
 
     LastScroll = Date.now();
+    IsUpdated = false;
 
     const Image = $(".Drone-Intro .Image img");
     const rect = Image[0].getBoundingClientRect();
@@ -120,7 +94,11 @@ window.addEventListener('scroll', function () {
 
 setInterval(() => {
 
-    if (Date.now() - LastScroll > 250) return;
+    // Exit if the user is scrolling
+    
+    if ((Date.now() - LastScroll < 50) || IsUpdated) return;
+
+    IsUpdated = true;
 
     const Image = $(".Drone-Intro .Image img");
 
