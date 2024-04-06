@@ -11,7 +11,15 @@ const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, L
 
 const Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
 
-$(".Drone-Intro .Image img").attr("src", `../Assets/${Sequence.Dir}/frame_0001.jpg`)
+const InitImg = $(".Drone-Intro .Image img").attr("src", `../Assets/${Sequence.Dir}/frame_0001.jpg`);
+
+InitImg.one("load", () => {
+
+    // Load the other images
+
+    LoadImages();
+
+});
 
 function LoadImages() {
 
@@ -102,7 +110,3 @@ setInterval(() => {
     Image.attr("src", `../Assets/${Sequence.Dir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
 
 }, 50);
-
-// Load the images
-
-LoadImages();
