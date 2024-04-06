@@ -1,11 +1,7 @@
 const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean }[] = [
 
-    { Dir: "Frames_LIC", Length: 554, Speed: 1, Loaded: false },
-    { Dir: "Frames_Clouds", Length: 300, Speed: 1, Loaded: false },
-    { Dir: "Frames_NYC", Length: 315, Speed: 1.5, Loaded: false },
-    { Dir: "Frames_RI", Length: 341, Speed: 1.25, Loaded: false },
-    { Dir: "Frames_HIGH", Length: 577, Speed: 1, Loaded: false },
-
+    // { Dir: "Frames_LIC", Length: 554, Speed: 1, Loaded: false },
+    // { Dir: "Frames_Clouds", Length: 300, Speed: 1, Loaded: false },
 
 ]
 
