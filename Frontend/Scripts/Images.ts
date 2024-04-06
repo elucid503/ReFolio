@@ -1,51 +1,40 @@
-let FrameDir = "Frames_LIC";
-let FrameLength = 554;
+const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean }[] = [
 
-const Random = Math.random();
+    { Dir: "Frames_LIC", Length: 554, Speed: 1, Loaded: false },
+    { Dir: "Frames_Clouds", Length: 300, Speed: 1, Loaded: false },
+    { Dir: "Frames_NYC", Length: 315, Speed: 1.5, Loaded: false },
+    { Dir: "Frames_RI", Length: 341, Speed: 1.25, Loaded: false },
+    { Dir: "Frames_HIGH", Length: 577, Speed: 1, Loaded: false },
 
-if (Random < 0.5) {
 
-    FrameDir = "Frames_Clouds";
-    FrameLength = 300;
+]
 
-}
+const Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
 
-$(".Drone-Intro .Image img").attr("src", `../Assets/${FrameDir}/frame_0001.jpg`)
-
-// More soon...
-
-const LoadedImages = {
-
-    Clouds: false,
-    LIC: false
-
-}
+$(".Drone-Intro .Image img").attr("src", `../Assets/${Sequence.Dir}/frame_0001.jpg`)
 
 function LoadImages() {
 
-    if (LoadedImages.Clouds && LoadedImages.LIC) return;
-
-    if (LoadedImages.Clouds && FrameDir === "Frames_Clouds") return;
-    if (LoadedImages.LIC && FrameDir === "Frames_LIC") return;
+    if (Sequence.Loaded) return;
 
     // Load all the images in advance
 
-    for (let i = 1; i <= FrameLength; i++) {
+    for (let i = 1; i <= Sequence.Length; i++) {
 
         const PaddedFrame = i.toString().padStart(4, '0');
 
         const Img = new Image();
 
-        Img.src = `../Assets/${FrameDir}/frame_${PaddedFrame}.jpg`;
+        Img.src = `../Assets/${Sequence.Dir}/frame_${PaddedFrame}.jpg`;
 
     }
 
-    if (FrameDir === "Frames_Clouds") LoadedImages.Clouds = true;
-    if (FrameDir === "Frames_LIC") LoadedImages.LIC = true;
+    Sequence.Loaded = true;
 
 }
 
 let IsUpdated = false;
+
 let LastScroll = 0;
 let CurrentFrame = 1;
 
@@ -80,15 +69,21 @@ window.addEventListener('scroll', function () {
 
     // Determine the frame based on the progress
 
-    CurrentFrame = Math.round(progress * FrameLength);
+    CurrentFrame = Math.round(progress * Sequence.Length);
+
+    if (Sequence.Speed !== 1) { // Slow or speed up the animation
+
+        CurrentFrame = Math.round(CurrentFrame * Sequence.Speed);
+
+    }
 
     // Ensure the frame is within bounds
 
-    CurrentFrame = Math.max(1, Math.min(CurrentFrame, FrameLength));
+    CurrentFrame = Math.max(1, Math.min(CurrentFrame, Sequence.Length));
 
     // Pad the frame number and set the image source
 
-    Image.attr('src', `../Assets/${FrameDir}/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
+    Image.attr('src', `../Assets/${Sequence.Dir}/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
  
 });
 
@@ -104,7 +99,7 @@ setInterval(() => {
 
     // Upgrade to a higher resolution image if the user is not scrolling
 
-    Image.attr("src", `../Assets/${FrameDir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
+    Image.attr("src", `../Assets/${Sequence.Dir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
 
 }, 50);
 

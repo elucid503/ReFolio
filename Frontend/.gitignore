@@ -1,9 +1,6 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
-/Assets/Frames_Clouds
-/Assets/Frames_LIC
-/Assets/Frames_LIC_HQ
-/Assets/Frames_Clouds_HQ
+/Assets/Frames*
 */cloudflared.deb
 
 # Logs
