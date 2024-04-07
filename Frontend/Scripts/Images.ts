@@ -4,6 +4,7 @@ const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, L
     { Dir: "Clouds", Length: 272, Speed: 1, Loaded: false, NetworkQuality: 0 },
     { Dir: "Buildings", Length: 359, Speed: 1, Loaded: false, NetworkQuality: 2 },
     { Dir: "Court-Sq", Length: 451, Speed: 1, Loaded: false, NetworkQuality: 4, },
+    { Dir: "Sunset", Length: 401, Speed: 1.5, Loaded: false, NetworkQuality: 1, },
 
 ]
 
@@ -42,7 +43,7 @@ if (NetworkQuality !== null) {
 
     let UpperBound = 0;
 
-    while (NetworkQuality < Sequence.NetworkQuality && UpperBound < 10) {
+    while (NetworkQuality <= Sequence.NetworkQuality && UpperBound < 10) {
 
         UpperBound++; // Always using a fixed upper bound 
         Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
