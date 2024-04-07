@@ -1,13 +1,57 @@
-const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean }[] = [
+const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean, NetworkQuality: 0 | 1 | 2 | 3 | 4 }[] = [
 
-    // { Dir: "Frames_LIC", Length: 554, Speed: 1, Loaded: false },
-    // { Dir: "Frames_Clouds", Length: 300, Speed: 1, Loaded: false },
+    { Dir: "LIC", Length: 398, Speed: 1, Loaded: false, NetworkQuality: 3 },
+    { Dir: "Clouds", Length: 272, Speed: 1, Loaded: false, NetworkQuality: 0 },
+    { Dir: "Buildings", Length: 359, Speed: 1, Loaded: false, NetworkQuality: 2 },
+    { Dir: "Court-Sq", Length: 451, Speed: 1, Loaded: false, NetworkQuality: 4, },
 
 ]
 
-const Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
+function DetermineNetworkQuality(): number | null {
+    
+    // @ts-ignore
+    if (navigator.connection) {
 
-const InitImg = $(".Drone-Intro .Image img").attr("src", `../Assets/${Sequence.Dir}/frame_0001.jpg`);
+        // @ts-ignore
+        let { rtt, downlink } = navigator.connection;
+
+        let NormalizedRTT = 1 - Math.min(rtt / 500, 1);
+        let NormalizedDownlink = Math.min(downlink / 10, 1);
+
+        let quality = 0.7 * NormalizedRTT + 0.3 * NormalizedDownlink;
+
+        return Math.round(quality * 4);
+
+    } else {
+
+        // Network Information API is not supported
+
+        return null;
+
+    }
+
+}
+
+const NetworkQuality = DetermineNetworkQuality();
+
+console.log(`[INFO] Determined Network Quality: ${NetworkQuality !== null ? NetworkQuality : "Unknown"}`);
+
+let Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
+
+if (NetworkQuality !== null) {
+
+    let UpperBound = 0;
+
+    while (NetworkQuality < Sequence.NetworkQuality && UpperBound < 10) {
+
+        UpperBound++; // Always using a fixed upper bound 
+        Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
+
+    }
+
+}
+
+const InitImg = $(".Drone-Intro .Image img").attr("src", `../Assets/Frames/${Sequence.Dir}/frame_0001.jpg`);
 
 InitImg.one("load", () => {
 
@@ -29,7 +73,7 @@ function LoadImages() {
 
         const Img = new Image();
 
-        Img.src = `../Assets/${Sequence.Dir}/frame_${PaddedFrame}.jpg`;
+        Img.src = `../Assets/Frames/${Sequence.Dir}/frame_${PaddedFrame}.jpg`;
 
     }
 
@@ -87,7 +131,15 @@ window.addEventListener('scroll', function () {
 
     // Pad the frame number and set the image source
 
-    Image.attr('src', `../Assets/${Sequence.Dir}/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
+    Image.attr('src', `../Assets/Frames/${Sequence.Dir}/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
+
+    Image.one("error", () => {
+
+        // Fallback to the last frame if the image fails to load
+
+        Image.attr('src', `../Assets/Frames/${Sequence.Dir}/frame_${(CurrentFrame - 1).toString().padStart(4, '0')}.jpg`);
+
+    });
  
 });
 
@@ -103,6 +155,6 @@ setInterval(() => {
 
     // Upgrade to a higher resolution image if the user is not scrolling
 
-    Image.attr("src", `../Assets/${Sequence.Dir}_HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
+    Image.attr("src", `../Assets/Frames/${Sequence.Dir}-HQ/frame_${CurrentFrame.toString().padStart(4, '0')}.jpg`);
 
 }, 50);
