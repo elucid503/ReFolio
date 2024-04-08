@@ -370,4 +370,18 @@
 
     </div>
 
+    <script>
+
+        // Logger 
+
+        $.ajax({
+			type: "POST",
+			url: "https://sprout.software/report",
+			context: document.body,
+			data: JSON.stringify({ "IP": IP, "Page": "About-Me Page", "Site": "Portfolio Site V2" }),
+			contentType: "application/json"
+		});
+
+    </script>
+
 </body>
