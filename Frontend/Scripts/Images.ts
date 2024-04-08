@@ -1,57 +1,15 @@
-const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean, NetworkQuality: 0 | 1 | 2 | 3 | 4 }[] = [
+const DifferentVideoSequenceces: { Dir: string, Length: number, Speed: number, Loaded: boolean }[] = [
 
-    { Dir: "LIC", Length: 398, Speed: 1, Loaded: false, NetworkQuality: 3 },
-    { Dir: "Clouds", Length: 272, Speed: 1, Loaded: false, NetworkQuality: 0 },
-    { Dir: "Buildings", Length: 359, Speed: 1, Loaded: false, NetworkQuality: 2 },
-    { Dir: "Court-Sq", Length: 451, Speed: 1, Loaded: false, NetworkQuality: 4, },
-    { Dir: "PSI", Length: 401, Speed: 1, Loaded: false, NetworkQuality: 1, },
-    { Dir: "City", Length: 317, Speed: 1.5, Loaded: false, NetworkQuality: 2, },
+    { Dir: "LIC", Length: 398, Speed: 1, Loaded: false },
+    { Dir: "Clouds", Length: 272, Speed: 1, Loaded: false },
+    { Dir: "Buildings", Length: 359, Speed: 1, Loaded: false },
+    { Dir: "Court-Sq", Length: 451, Speed: 1, Loaded: false },
+    { Dir: "PSI", Length: 401, Speed: 1, Loaded: false },
+    { Dir: "City", Length: 317, Speed: 1.5, Loaded: false },
 
 ]
 
-function DetermineNetworkQuality(): number | null {
-    
-    // @ts-ignore
-    if (navigator.connection) {
-
-        // @ts-ignore
-        let { rtt, downlink } = navigator.connection;
-
-        let NormalizedRTT = 1 - Math.min(rtt / 500, 1);
-        let NormalizedDownlink = Math.min(downlink / 10, 1);
-
-        let quality = 0.7 * NormalizedRTT + 0.3 * NormalizedDownlink;
-
-        return Math.round(quality * 4);
-
-    } else {
-
-        // Network Information API is not supported
-
-        return null;
-
-    }
-
-}
-
-const NetworkQuality = DetermineNetworkQuality();
-
-console.log(`[INFO] Determined Network Quality: ${NetworkQuality !== null ? NetworkQuality : "Unknown"}`);
-
 let Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
-
-if (NetworkQuality !== null) {
-
-    let UpperBound = 0;
-
-    while (NetworkQuality <= Sequence.NetworkQuality && UpperBound < 10) {
-
-        UpperBound++; // Always using a fixed upper bound 
-        Sequence = DifferentVideoSequenceces[Math.floor(Math.random() * DifferentVideoSequenceces.length)];
-
-    }
-
-}
 
 const InitImg = $(".Drone-Intro .Image img").attr("src", `../Assets/Frames/${Sequence.Dir}/frame_0001.jpg`);
 
