@@ -372,15 +372,33 @@
 
     <script>
 
-        // Logger 
+        async function Log() { 
 
-        $.ajax({
-			type: "POST",
-			url: "https://sprout.software/report",
-			context: document.body,
-			data: JSON.stringify({ "IP": IP, "Page": "About-Me Page", "Site": "Portfolio Site V2" }),
-			contentType: "application/json"
-		});
+            if (Date.now() - LastLog < 30_000) return;
+
+            LastLog = Date.now();
+            localStorage.setItem('LastLog', LastLog);
+
+            const IP = await fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => data.ip)
+                .catch(() => null);
+            
+            if (IP) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://sprout.software/report",
+                    context: document.body,
+                    data: JSON.stringify({ "IP": IP, "Page": "About-Me Page", "Site": "Portfolio Site V2" }),
+                    contentType: "application/json"
+                });
+
+            }
+            
+        }
+
+        Log();  
 
     </script>
 
