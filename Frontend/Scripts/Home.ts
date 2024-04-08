@@ -46,11 +46,25 @@ const Modal = $('#Gallery-Modal');
 const ModalImg = $('#Modal-Image');
 const CloseBtn = $('#Modal-Close');
 
-Gallery.on('click', 'img', function() {
+Gallery.on('click', 'img', function () {
+    
+    const ImageName = $(this).attr('src')?.split('/').pop() || '';
+
+    const Loading = $('#Modal-Loading');
+
+    CloseBtn.hide();
+    Loading.show();
     
     Modal.fadeIn(200);
 
-    ModalImg.attr('src', $(this).attr('src') || '');
+    ModalImg.attr('src', "../Assets/Gallery/HQ/" + ImageName.replace(".jpg", ".png"));
+
+    ModalImg.one('load', () => {
+
+        Loading.hide();
+        CloseBtn.show(); 
+
+    });
 
 });
 
