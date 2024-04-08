@@ -218,6 +218,12 @@ async function AddImages(SkipPrevious: boolean, Min: number) {
 
             </div>`);
 
+            if (window.innerWidth < 700) {
+
+                LoadingElement.css("width", "clamp(125px, 30vw, 175px)");
+
+            }
+
             LoadingElement.appendTo(Gallery);
 
             ImgLoad.onload = () => {

@@ -50,6 +50,9 @@ Gallery.on('click', 'img', function () {
     
     const ImageName = $(this).attr('src')?.split('/').pop() || '';
 
+    ModalImg.hide();
+    ModalImg.attr('src', "../Assets/Gallery/HQ/" + ImageName.replace(".jpg", ".png"));
+
     const Loading = $('#Modal-Loading');
 
     CloseBtn.hide();
@@ -57,11 +60,10 @@ Gallery.on('click', 'img', function () {
     
     Modal.fadeIn(200);
 
-    ModalImg.attr('src', "../Assets/Gallery/HQ/" + ImageName.replace(".jpg", ".png"));
-
     ModalImg.one('load', () => {
 
         Loading.hide();
+        ModalImg.show();
         CloseBtn.show(); 
 
     });
