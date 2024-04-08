@@ -372,6 +372,8 @@
 
     <script>
 
+        let LastLog = localStorage.getItem('LastLog') || 0;
+
         async function Log() { 
 
             if (Date.now() - LastLog < 30_000) return;
