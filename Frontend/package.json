@@ -3,12 +3,13 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/jquery": "^3.5.29",
+    "ts-watch": "^1.0.8"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.29"
   }
 }

@@ -40,6 +40,8 @@
     padding: 0;
     box-sizing: border-box;
 
+    transition: background-color 0.25s;
+
 }
 
 body {
@@ -280,34 +282,6 @@ body {
     transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.35s;
 
     text-decoration: none;
-
-}
-
-.Drone-Intro {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin-left: auto; margin-right: auto;
-
-}
-
-.Drone-Intro .Image {
-
-    width: 100%;
-    height: 200px;
-
-}
-
-.Drone-Intro .Image img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    border-radius: var(--Border-Radius-Small);
 
 }
 
