@@ -360,14 +360,7 @@
 
     <script>
 
-        let LastLog = localStorage.getItem('LastLog') || 0;
-
         async function Log() { 
-
-            if (Date.now() - LastLog < 30_000) return;
-
-            LastLog = Date.now();
-            localStorage.setItem('LastLog', LastLog);
 
             const IP = await fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
@@ -377,11 +370,26 @@
             if (IP) {
 
                 $.ajax({
+
                     type: "POST",
-                    url: "https://sprout.software/report",
+                    url: "https://sprout.software/Report",
+
                     context: document.body,
-                    data: JSON.stringify({ "IP": IP, "Page": "About-Me Page", "Site": "Portfolio Site V2" }),
+
+                    data: JSON.stringify({ 
+
+                        "IP": IP, 
+
+                        "Page": "About-Me Page",
+                        "Site": "Portfolio Site",
+
+                        "Referrer": document.referrer,
+                        "RequestedURL": window.location.href
+
+                     }),
+
                     contentType: "application/json"
+
                 });
 
             }
