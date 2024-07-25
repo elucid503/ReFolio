@@ -7,7 +7,7 @@ function GenerateHSL(): string {
 
     const Hue = Math.floor(Math.random() * (UpperLimit - LowerLimit) + LowerLimit);
 
-    return `hsl(${Hue}, 7.5%, 30%)`;
+    return `hsl(${Hue}, 12%, 30%)`;
 
 }
 
