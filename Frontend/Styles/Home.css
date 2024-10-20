@@ -5,7 +5,7 @@
 :root {
 
     --Background-Color: #0f0f0f;
-    --Text-Color: #e9f3ff;
+    --Text-Color: #f6fafe;
 
     --Font: 'Urbanist', sans-serif;
 
@@ -281,6 +281,14 @@ body {
 
     border-radius: var(--Border-Radius-Small);
 
+    transition: all 0.25s;
+
+}
+
+.Responsive-Gallery img:hover {
+
+    filter: brightness(0.9);
+
 }
 
 .Responsive-Gallery .Loading-Element {
@@ -345,7 +353,6 @@ body {
     flex-direction: column;
     align-items: center;
 
-
 }
 
 .Modal-Content {
@@ -400,7 +407,12 @@ body {
 
 #Modal-Image {
         
-    width: 85%;
+    max-width: 90%;
+    height: 85%;
+    width: auto;
+
+    object-fit: cover;
+    background-position: center;
 
     margin-bottom: var(--Spacing-Medium);
     border-radius: var(--Border-Radius-Semi-Large);

@@ -5,12 +5,13 @@ const Modal = $('#Gallery-Modal');
 const ModalImg = $('#Modal-Image');
 const CloseBtn = $('#Modal-Close');
 
-Gallery.on('click', 'img', function () {
+Gallery.on('click', 'img', function (Event) {
     
     const ImageName = $(this).attr('src')?.split('/').pop() || '';
+    const AssociatedObjectName = $(Event.target).attr("ObjectName") || '';
 
     ModalImg.hide();
-    ModalImg.attr('src', "../Assets/Gallery/HQ/" + ImageName.replace(".jpg", ".png"));
+    ModalImg.attr('src', "../Assets/Gallery/Dynamic/" + (AssociatedObjectName == "NYC" ? ImageName.replace(".jpg", ".png") : ImageName.replace(".png", ".jpg")));
 
     const Loading = $('#Modal-Loading');
 
@@ -45,96 +46,92 @@ Modal.on('click', function(e) {
 
 });
 
-// Load gallery
+// Gallary Meta
 
-const Images: { Name: string, Limit: number  }[] = [
+const Images: { Name: string, Limit: number }[] = [
     
-    {
-
-        Name: "CM",
-        Limit: 11
-
-
-    },
-
     {
 
         Name: "NYC",
         Limit: 41
 
-    }
+    },
+
+    {
+
+        Name: "LIC-6-7",
+        Limit: 32
+
+    },
+
+    {
+
+        Name: "DSCGLF-9-13",
+        Limit: 67
+
+    },
+
+    {
+
+        Name: "DSCGLF-9-27",
+        Limit: 83
+
+    },
+
+    {
+
+        Name: "DSCGLF-10-19",
+        Limit: 78
+
+    },
 
 ] 
 
-const Previous: string[] = [];
 
-async function AddImages(SkipPrevious: boolean, Min: number) {
-
-    const WidthAndHeights: { Name: string, Width: number, Height: number }[] = [ { "Name": "CM_1.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_10.jpg", "Height": 3648, "Width": 5472 } , { "Name": "CM_11.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_2.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_3.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_4.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_5.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_6.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_7.jpg", "Height": 3078, "Width": 5472 } , { "Name": "CM_8.jpg", "Height": 3648, "Width": 5472 } , { "Name": "CM_9.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_1.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_10.jpg", "Height": 1300, "Width": 1952 } , { "Name": "NYC_11.jpg", "Height": 1246, "Width": 1885 } , { "Name": "NYC_12.jpg", "Height": 1297, "Width": 1954 } , { "Name": "NYC_13.jpg", "Height": 1294, "Width": 1954 } , { "Name": "NYC_14.jpg", "Height": 1288, "Width": 1946 } , { "Name": "NYC_15.jpg", "Height": 1290, "Width": 1950 } , { "Name": "NYC_16.jpg", "Height": 1294, "Width": 1949 } , { "Name": "NYC_17.jpg", "Height": 1285, "Width": 1949 } , { "Name": "NYC_18.jpg", "Height": 1289, "Width": 1943 } , { "Name": "NYC_19.jpg", "Height": 1294, "Width": 1942 } , { "Name": "NYC_2.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_20.jpg", "Height": 1285, "Width": 1944 } , { "Name": "NYC_21.jpg", "Height": 1281, "Width": 1940 } , { "Name": "NYC_22.jpg", "Height": 1291, "Width": 1939 } , { "Name": "NYC_23.jpg", "Height": 1287, "Width": 1948 } , { "Name": "NYC_24.jpg", "Height": 1439, "Width": 2559 } , { "Name": "NYC_25.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_26.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_27.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_28.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_29.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_3.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_30.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_31.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_32.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_33.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_34.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_35.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_36.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_37.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_38.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_39.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_4.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_40.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_41.jpg", "Height": 3078, "Width": 5472 } , { "Name": "NYC_5.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_6.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_7.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_8.jpg", "Height": 3648, "Width": 5472 } , { "Name": "NYC_9.jpg", "Height": 3078, "Width": 5472 } ]      
+async function AddImages(Needed: number) {
     
     let Added = 0;
+    const Previous: string[] = [];
 
-    // @ts-ignore
-    const AddImage = ({ Name, Limit }) => {
-
-        for (let i = 1; i <= Limit; i++) {
-
-            if (Math.random() > 0.25) continue;
-            if (SkipPrevious && Previous.includes(`${Name}_${i}.jpg`)) continue;
-
-            const ImgLoad = new Image();
-
-            ImgLoad.src = `../Assets/Gallery/LQ/${Name}_${i}.jpg`;
-            
-            const { Width, Height } = WidthAndHeights.find(({ Name: N }) => N === `${Name}_${i}.jpg`) || { Width: 1080, Height: 1920 };
-
-            const LoadingElement = $(`<div class="Loading-Element" style="aspect-ratio: ${Width} / ${Height};">
+    const ToAddFromEach = Math.ceil(Needed / Images.length);
     
-                <div class="Icon">
+    for (const ImageObj of Images) {
 
-                    <ion-icon name="hourglass-outline"></ion-icon>
+        for (let i = 1; i <= ToAddFromEach; i++) {
 
-                </div>
+            if (Added > Needed) {
 
-            </div>`);
-
-            if (window.innerWidth < 700) {
-
-                LoadingElement.css("width", "clamp(125px, 30vw, 175px)");
+                break;
 
             }
 
-            LoadingElement.appendTo(Gallery);
+            const ImageIndex = Math.floor(Math.random() * ImageObj.Limit) + 1;
 
-            ImgLoad.onload = () => {
+            if (Previous.includes(ImageObj.Name + ImageIndex)) {
 
-                // Replace the loading element with the actual image
+                continue;
 
-                LoadingElement.replaceWith(`<img src="../Assets/Gallery/LQ/${Name}_${i}.jpg" alt="${Name}">`);
-                
             }
 
-            Previous.push(`${Name}_${i}.jpg`);
+            Previous.push(ImageObj.Name + ImageIndex);
+
+            // Hotswap the names for NYC as it was created using the old compression method
+
+            const Image = $(`<img src="../Assets/Gallery/Dynamic/${ImageObj.Name}_${ImageIndex}.${ImageObj.Name == "NYC" ? "jpg" : "png"}" alt="${ImageObj.Name} ${ImageIndex}">`);
+
+            Image.attr("ObjectName", ImageObj.Name);
+
+            Gallery.append(Image);
+
             Added++;
 
         }
-        
-    };
-
-    Images.forEach(AddImage);
-
-    // If not enough images were added, loop again and ignore SkipPrevious
-
-    if (Added < Min) {
-
-        SkipPrevious = false;
-        Images.forEach(AddImage);
 
     }
-
+    
 }
 
-AddImages(false, 10);
+AddImages(20);
 
 const MorePhotosBtn = $("#Button-MorePhotos");
 
@@ -144,6 +141,6 @@ MorePhotosBtn.on("click", () => {
 
     Gallery.children().remove();
 
-    AddImages(true, 10);
+    AddImages(20);
     
 });
