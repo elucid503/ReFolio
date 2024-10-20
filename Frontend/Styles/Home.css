@@ -4,7 +4,7 @@
 
 :root {
 
-    --Background-Color: #171717;
+    --Background-Color: #0f0f0f;
     --Text-Color: #e9f3ff;
 
     --Font: 'Urbanist', sans-serif;
@@ -19,11 +19,9 @@
     --Spacing-Medium: 2rem;
     --Spacing-Large: 3rem;
 
-    --Color-Accent: #1a1a1a;
-
-    --Element-Color: rgba(43, 43, 43, 0.5);
-    --Element-Color-Lighter: rgba(33, 33, 33, 0.5);
-    --Element-Color-Darker: rgba(23, 23, 23, 0.5);
+    --Element-Color-Lightest: rgba(33, 33, 33, 1);
+    --Element-Color-Lighter: rgba(30, 30, 30, 1);
+    --Element-Color-Darker: rgba(25, 25, 25, 0.9);
 
     --Element-Backdrop-Filter: blur(10px);
 
@@ -62,7 +60,6 @@ body {
 
     position: relative;
 
-
     width: 95%;
 
     margin-top: var(--Spacing-Medium);
@@ -72,7 +69,7 @@ body {
     padding-top: var(--Spacing-Medium);
     padding-bottom: var(--Spacing-Medium);
 
-    background-color: var(--Color-Accent);
+    background-color: var(--Element-Color-Darker);
     backdrop-filter: var(--Element-Backdrop-Filter);
 
     border-radius: var(--Border-Radius-Medium);
@@ -94,16 +91,12 @@ body {
     flex-direction: column;
     justify-content: center;
 
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-
 }
 
 .Header .Pretext {
 
     font-size: var(--Font-Size-Small);
-
+    
 }
 
 .Header .Title {
@@ -120,21 +113,10 @@ body {
 
 }
  
-.About-Me .Text {
-
-    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
-
-    text-align: center;
-
-    justify-content: center;
-    margin-left: auto; margin-right: auto;
-    
-}
-
-.Programming, .Photography, .Contact, .Footer, .About-Me {
+.Programming, .Photography, .Contact, .Footer {
 
     margin-bottom: var(--Spacing-Medium);
-    background-color: var(--Color-Accent);
+    background-color: var(--Element-Color-Darker);
     backdrop-filter: var(--Element-Backdrop-Filter);
 
     width: 95%;
@@ -151,6 +133,8 @@ body {
     font-size: var(--Font-Size-Small);
     margin-bottom: var(--Spacing-Micro);
 
+    text-align: center;
+
 }
 
 .Programming .Title, .Photography .Title {
@@ -158,6 +142,8 @@ body {
     font-size: var(--Font-Size-Large);
     font-weight: 800;
     margin-bottom: var(--Spacing-Medium);
+
+    text-align: center;
 
 }
 
@@ -178,7 +164,7 @@ body {
     height: fit-content;
     min-height: 250px;
 
-    background-color: var(--Element-Color-Darker);
+    background-color: var(--Element-Color-Lightest);
     border-radius: var(--Border-Radius-Medium);
     backdrop-filter: var(--Element-Backdrop-Filter);
 
@@ -221,12 +207,20 @@ body {
     font-weight: 700;
     margin-bottom: var(--Spacing-Small);
 
+    text-align: left;
+
+}
+
+.Tile .Pretext {
+
+    text-align: left;
+
 }
 
 .Buttons {
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: var(--Spacing-Medium);
     margin-top: var(--Spacing-Medium);
 
@@ -234,7 +228,7 @@ body {
 
 .Button {
 
-    background-color: var(--Element-Color-Lighter);
+    background-color: var(--Element-Color-Lightest);
     backdrop-filter: var(--Element-Backdrop-Filter);
 
     border-radius: var(--Border-Radius-Semi-Large);
@@ -259,7 +253,7 @@ body {
 
 .Button:hover {
 
-    background-color: rgba(40, 40, 40, 0.75);
+    background-color: rgba(40, 40, 40, 0.95);
 
 }
 
@@ -549,10 +543,16 @@ body {
 
     }
 
-    .Programming, .Photography, .Contact, .Footer, .About-Me {
+    .Programming, .Photography, .Contact, .Footer {
 
         text-align: center ;
         margin-bottom: var(--Spacing-Small);
+
+    }
+
+    .Programming .Tile .Pretext, .Programming .Tile .Title {
+
+        text-align: center;
 
     }
 
