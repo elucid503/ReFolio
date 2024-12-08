@@ -1,5 +1,7 @@
 // Modal Stuff (Gallery) 
 
+import { Snowstorm } from "./Snow.js";
+
 const Gallery = $('.Responsive-Gallery');
 const Modal = $('#Gallery-Modal');
 const ModalImg = $('#Modal-Image');
@@ -144,3 +146,5 @@ MorePhotosBtn.on("click", () => {
     AddImages(20);
     
 });
+
+new Snowstorm($(".Snowstorm")).Start();
